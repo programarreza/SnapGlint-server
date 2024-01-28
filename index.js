@@ -76,6 +76,26 @@ app.post("/add_blog", (req, res) => {
   });
 });
 
+// get all blogs
+app.get("/blogs", (req, res) => {
+  const sql = "SELECT * FROM blog";
+  db.query(sql, (err, result) => {
+    if (err) return res.json({ Message: "Error inside server" });
+    return res.json(result);
+  });
+});
+
+// get specific single blogs
+app.get("/blogs_details/:id", (req, res) => {
+  const sql = "SELECT * FROM blog WHERE id = ?";
+  const id = req.params.id;
+
+  db.query(sql, [id], (err, result) => {
+    if (err) return res.json({ Message: "Error inside server" });
+    return res.json(result);
+  });
+});
+
 app.listen(port, () => {
   console.log(`SnapGlint on port ${port}`);
 });
