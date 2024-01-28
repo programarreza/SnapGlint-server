@@ -96,6 +96,21 @@ app.get("/blogs_details/:id", (req, res) => {
   });
 });
 
+// blog update api
+app.put("/blog_update/:id", (req, res) => {
+  const sql =
+    "UPDATE blog SET `title`=?, `description`=?, `image`=? WHERE id=?";
+  const id = req.params.id;
+  db.query(
+    sql,
+    [req.body.title, req.body.description, req.body.image, id],
+    (err, result) => {
+      if (err) return res.json({ Message: "Error inside server" });
+      return res.json(result);
+    }
+  );
+});
+
 app.listen(port, () => {
   console.log(`SnapGlint on port ${port}`);
 });
