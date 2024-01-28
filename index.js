@@ -111,6 +111,15 @@ app.put("/blog_update/:id", (req, res) => {
   );
 });
 
+app.delete("/blog_delete/:id", (req, res) => {
+  const sql = "DELETE FROM blog WHERE id =?";
+  const id = req.params.id;
+  db.query(sql, [id], (err, result) => {
+    if (err) return res.json({ Message: "Error inside server" });
+    return res.json(result);
+  });
+});
+
 app.listen(port, () => {
   console.log(`SnapGlint on port ${port}`);
 });
