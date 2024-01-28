@@ -120,6 +120,34 @@ app.delete("/blog_delete/:id", (req, res) => {
   });
 });
 
+
+// favorite post api
+app.post('/favorite', (req, res) => {
+  const sql =
+    "INSERT INTO favorites (`userId`, `id`, `title`, `description`, `image`) VALUE (?)";
+  const values = [
+    req.body.userId,
+    req.body.id,
+    req.body.title,
+    req.body.description,
+    req.body.image,
+  ];
+  db.query(sql, [values], (err, result) => {
+    if (err) return res.json(err);
+    return res.json(result);
+  });
+})
+
+// favorite get api
+app.get("/favorite", (req, res) => {
+  const sql = "SELECT * FROM favorites";
+  db.query(sql, (err, result) => {
+    if (err) return res.json({ Message: "Error inside server" });
+    return res.json(result);
+  });
+});
+
 app.listen(port, () => {
   console.log(`SnapGlint on port ${port}`);
 });
+
