@@ -147,6 +147,34 @@ app.get("/favorite", (req, res) => {
   });
 });
 
+
+// add comment post api
+app.post("/comment", (req, res) => {
+  const sql =
+    "INSERT INTO comments (`blogId`, `name`, `email`, `message`, `image`) VALUE (?)";
+  const values = [
+    req.body.blogId,
+    req.body.name,
+    req.body.email,
+    req.body.message,
+    req.body.image,
+  ];
+  db.query(sql, [values], (err, result) => {
+    if (err) return res.json(err);
+    return res.json(result);
+  });
+});
+
+
+// comment get api
+app.get("/comments/:blogId", (req, res) => {
+  const sql = "SELECT * FROM comments WHERE blogId =?";
+  const blogId = req.params.blogId;
+  db.query(sql, [blogId], (err, result) => {
+    if (err) return res.json({ Message: "Error inside server" });
+    return res.json(result);
+  });
+});
 app.listen(port, () => {
   console.log(`SnapGlint on port ${port}`);
 });
