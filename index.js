@@ -10,10 +10,10 @@ app.use(cors());
 app.use(express.json());
 
 const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "snapglint",
+  host: "b51vfb3ij6ej1jbpl7hv-mysql.services.clever-cloud.com",
+  user: "uwq6doojfdkpfvs0",
+  password: "S4aed6t2Fqb6LzjKo9gL",
+  database: "b51vfb3ij6ej1jbpl7hv",
 });
 
 // signup post api
